@@ -1,30 +1,22 @@
 /*
 =============== 
-Fonts
-===============
-*/
-@import url("https://fonts.googleapis.com/css?family=Catamaran:400,700&display=swap");
-
-/*
-=============== 
 Variables
 ===============
 */
 
 :root {
-  --clr-primary: #2680c0;
-  --clr-primary-dark: hsl(205, 100%, 21%);
-  --clr-primary-light: hsl(205, 84%, 74%);
+  --clr-primary: #645cff;
+  --clr-primary-dark: #282566;
+  --clr-primary-light: #a29dff;
   --clr-grey-1: #102a42;
   --clr-grey-5: #617d98;
   --clr-grey-10: #f1f5f8;
   --clr-white: #fff;
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
-  --ff-primary: "Catamaran", sans-serif;
   --transition: all 0.3s linear;
   --spacing: 0.25rem;
-  --radius: 0.5rem;
+  --radius: 0.25rem;
   --large-screen-width: 1170px;
   --small-screen-width: 90vw;
   --fixed-width: 50rem;
@@ -35,7 +27,8 @@ Variables
   box-sizing: border-box;
 }
 body {
-  font-family: var(--ff-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background: var(--clr-grey-10);
   color: var(--clr-grey-1);
   line-height: 1.5;
@@ -121,6 +114,10 @@ p {
 Navbar
 ===============
 */
+.loading {
+  text-align: center;
+  margin-top: 5rem;
+}
 nav {
   background: var(--clr-primary);
   padding: 1.25rem 2rem;
@@ -135,6 +132,7 @@ nav {
 }
 nav h3 {
   margin-bottom: 0;
+  letter-spacing: 1px;
   color: var(--clr-white);
 }
 .nav-container {
@@ -142,13 +140,13 @@ nav h3 {
   position: relative;
 }
 nav svg {
-  width: 2rem;
-  fill: var(--clr-white);
+  width: 40px;
+  color: var(--clr-white);
 }
 .amount-container {
   position: absolute;
-  top: -0.75rem;
-  right: -0.75rem;
+  top: -0.6rem;
+  right: -0.6rem;
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
@@ -168,16 +166,17 @@ Cart
 ===============
 */
 .cart {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 120px);
   width: 90vw;
   margin: 0 auto;
+  margin-top: 40px;
   padding: 2.5rem 0;
   max-width: var(--fixed-width);
 }
 .cart h2 {
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 3rem;
 }
 .empty-cart {
   text-transform: lowercase;
@@ -195,17 +194,23 @@ Cart
   justify-content: space-between;
   margin-top: 1rem;
 }
-.clear-btn {
+.clear-btn,
+.confirm-btn {
   background: transparent;
   padding: 0.5rem 1rem;
   color: var(--clr-red-dark);
   border: 1px solid var(--clr-red-dark);
   margin-top: 2.25rem;
+  border-radius: var(--radius);
 }
 .clear-btn:hover {
   background: var(--clr-red-light);
   color: var(--clr-red-dark);
   border-color: var(--clr-red-light);
+}
+.confirm-btn {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
 }
 /*
 =============== 
@@ -246,20 +251,59 @@ Cart Item
   color: var(--clr-primary-light);
 }
 .amount-btn {
-  width: 1.5rem;
+  width: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
 }
 .amount-btn svg {
-  fill: var(--clr-primary);
+  color: var(--clr-primary);
 }
 .amount-btn:hover svg {
-  fill: var(--clr-primary-light);
+  color: var(--clr-primary-light);
 }
 .amount {
   text-align: center;
   margin-bottom: 0;
   font-size: 1.25rem;
   line-height: 1;
+}
+hr {
+  background: var(--clr-grey-5);
+  border-color: transparent;
+  border-width: 0.25px;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: var(--clr-white);
+  width: 80vw;
+  max-width: 400px;
+  border-radius: var(--radius);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.modal h4 {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+.modal .clear-btn,
+.modal .confirm-btn {
+  margin-top: 1rem;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-around;
 }
