@@ -2,20 +2,30 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import cartItems from "../../cartItems.js";
 // console.log(cartItems);
 
-const url = "https://course-api.com/react-useReducer-cart-project";
-
-export const getCartItems = createAsyncThunk("cart/getCartItems", () => {
-  return fetch(url)
-    .then((resp) => resp.json())
-    .catch((error) => console.log(error));
-});
+const url = "https://www.course-api.com/react-useReducer-cart-project";
 
 const initialState = {
-  cartItems: cartItems,
+  cartItems: [],
   amount: 0, // or quantity of d specific item
   total: 0,
   isLoading: true,
 };
+
+// export const getCartItems = createAsyncThunk("cart/getCartItems", async () => {
+//   try {
+//     const resp = await fetch(url);
+//     return await resp.json();
+//   } catch (error) {
+//     return console.log(error);
+//   }
+// });
+
+export const getCartItems = createAsyncThunk("cart/getCartItems", () => {
+  // console.log(fetch.url);
+  return fetch(url)
+    .then((resp) => resp.json())
+    .catch((err) => console.log(err));
+});
 
 const cartSlice = createSlice({
   name: "cart",
@@ -47,9 +57,37 @@ const cartSlice = createSlice({
       state.total = total;
     },
   },
+  // extraReducers: {
+  //   [getCartItems.pending]: (state) => {
+  //     state.isLoading = true;
+  //   },
+  //   [getCartItems.fulfilled]: (state, action) => {
+  //     console.log(action);
+  //     state.isLoading = false;
+  //     state.cartItems = action.payload;
+  //   },
+  //   [getCartItems.rejected]: (state) => {
+  //     state.isLoading = false;
+  //   },
+  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCartItems.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCartItems.fulfilled, (state, action) => {
+        // console.log(action);
+        state.isLoading = false;
+        state.cartItems = action.payload;
+      })
+      .addCase(getCartItems.rejected, (state, action) => {
+        console.log(action);
+        state.isLoading = false;
+      });
+  },
 });
 
-console.log(cartSlice);
+// console.log(cartSlice);
 export const { clearCart, removeItem, increase, decrease, calculateTotals } =
   cartSlice.actions;
 
